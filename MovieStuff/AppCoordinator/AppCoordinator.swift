@@ -45,6 +45,6 @@ class AppCoordinator: Coordinator {
 //            viewModel: viewModel,
 //            searchResultCollectionViewDelegate: searchTableViewProvider
 //        )
-        navigationController?.setViewControllers([FeedListViewController()], animated: false)
+        navigationController?.setViewControllers([MovieListBuilder.build()], animated: false)
     }
 }
