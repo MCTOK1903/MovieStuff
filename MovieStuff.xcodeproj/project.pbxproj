@@ -26,6 +26,11 @@
 		005CC86728A55C86007DB873 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 005CC86628A55C86007DB873 /* SnapKit */; };
 		005CC86A28A55CFB007DB873 /* MovieListBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005CC86928A55CFB007DB873 /* MovieListBuilder.swift */; };
 		005CC86C28A56399007DB873 /* NetworkCostants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005CC86B28A56399007DB873 /* NetworkCostants.swift */; };
+		0073135428A68C47001433AC /* UICollectionViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0073135328A68C47001433AC /* UICollectionViewCell+Extension.swift */; };
+		0073135628A68CE0001433AC /* MovieSearchCellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0073135528A68CE0001433AC /* MovieSearchCellSizeCalculator.swift */; };
+		0073135A28A6934A001433AC /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0073135928A6934A001433AC /* AlamofireImage */; };
+		0073135D28A693C9001433AC /* MovieListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0073135C28A693C9001433AC /* MovieListCellViewModel.swift */; };
+		0073136028A6CBB0001433AC /* MovieListHeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0073135F28A6CBB0001433AC /* MovieListHeaderReusableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +53,10 @@
 		005CC86328A55B54007DB873 /* Reuseable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reuseable+Extension.swift"; sourceTree = "<group>"; };
 		005CC86928A55CFB007DB873 /* MovieListBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListBuilder.swift; sourceTree = "<group>"; };
 		005CC86B28A56399007DB873 /* NetworkCostants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCostants.swift; sourceTree = "<group>"; };
+		0073135328A68C47001433AC /* UICollectionViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCell+Extension.swift"; sourceTree = "<group>"; };
+		0073135528A68CE0001433AC /* MovieSearchCellSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSearchCellSizeCalculator.swift; sourceTree = "<group>"; };
+		0073135C28A693C9001433AC /* MovieListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCellViewModel.swift; sourceTree = "<group>"; };
+		0073135F28A6CBB0001433AC /* MovieListHeaderReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListHeaderReusableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +66,7 @@
 			files = (
 				005CC86728A55C86007DB873 /* SnapKit in Frameworks */,
 				004C458528A5996200900927 /* Alamofire in Frameworks */,
+				0073135A28A6934A001433AC /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +204,9 @@
 		005CC85F28A55B0E007DB873 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				0073135E28A6CB9F001433AC /* Header */,
+				0073135B28A693B4001433AC /* ViewModel */,
+				0073135728A692C5001433AC /* SizeCalculator */,
 				005CC86028A55B30007DB873 /* MovieListCollectionViewCell.swift */,
 			);
 			path = Cell;
@@ -204,6 +217,7 @@
 			children = (
 				005CC86328A55B54007DB873 /* Reuseable+Extension.swift */,
 				004C458A28A5A35400900927 /* String+Extension.swift */,
+				0073135328A68C47001433AC /* UICollectionViewCell+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -214,6 +228,30 @@
 				005CC86928A55CFB007DB873 /* MovieListBuilder.swift */,
 			);
 			path = Builder;
+			sourceTree = "<group>";
+		};
+		0073135728A692C5001433AC /* SizeCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				0073135528A68CE0001433AC /* MovieSearchCellSizeCalculator.swift */,
+			);
+			path = SizeCalculator;
+			sourceTree = "<group>";
+		};
+		0073135B28A693B4001433AC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0073135C28A693C9001433AC /* MovieListCellViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0073135E28A6CB9F001433AC /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				0073135F28A6CBB0001433AC /* MovieListHeaderReusableView.swift */,
+			);
+			path = Header;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +273,7 @@
 			packageProductDependencies = (
 				005CC86628A55C86007DB873 /* SnapKit */,
 				004C458428A5996200900927 /* Alamofire */,
+				0073135928A6934A001433AC /* AlamofireImage */,
 			);
 			productName = MovieStuff;
 			productReference = 005CC82328A54D6C007DB873 /* MovieStuff.app */;
@@ -267,6 +306,7 @@
 			packageReferences = (
 				005CC86528A55C86007DB873 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				004C458328A5996200900927 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				0073135828A6934A001433AC /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = 005CC82428A54D6C007DB873 /* Products */;
 			projectDirPath = "";
@@ -297,15 +337,19 @@
 				004C458D28A5A47200900927 /* SearchResult.swift in Sources */,
 				005CC84128A54F57007DB873 /* MovieListViewController.swift in Sources */,
 				004C458B28A5A35400900927 /* String+Extension.swift in Sources */,
+				0073135628A68CE0001433AC /* MovieSearchCellSizeCalculator.swift in Sources */,
 				005CC84E28A551B1007DB873 /* MovieListModel.swift in Sources */,
 				005CC86428A55B54007DB873 /* Reuseable+Extension.swift in Sources */,
 				005CC83C28A54E3F007DB873 /* AppCoordinator.swift in Sources */,
 				005CC84428A550A8007DB873 /* HttpClient.swift in Sources */,
 				005CC86C28A56399007DB873 /* NetworkCostants.swift in Sources */,
+				0073135D28A693C9001433AC /* MovieListCellViewModel.swift in Sources */,
 				005CC85C28A55AA6007DB873 /* MovieSearchCollectionViewDataSource.swift in Sources */,
 				005CC85828A5590C007DB873 /* Constants.swift in Sources */,
 				005CC86A28A55CFB007DB873 /* MovieListBuilder.swift in Sources */,
 				005CC82728A54D6C007DB873 /* AppDelegate.swift in Sources */,
+				0073136028A6CBB0001433AC /* MovieListHeaderReusableView.swift in Sources */,
+				0073135428A68C47001433AC /* UICollectionViewCell+Extension.swift in Sources */,
 				005CC85A28A55A83007DB873 /* MovieFeedListViewModel.swift in Sources */,
 				004C458928A59C4B00900927 /* SearchBarDelegate.swift in Sources */,
 				005CC86128A55B30007DB873 /* MovieListCollectionViewCell.swift in Sources */,
@@ -534,6 +578,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		0073135828A6934A001433AC /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -546,6 +598,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 005CC86528A55C86007DB873 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		0073135928A6934A001433AC /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0073135828A6934A001433AC /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

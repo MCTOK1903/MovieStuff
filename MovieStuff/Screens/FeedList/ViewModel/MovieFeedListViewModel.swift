@@ -8,7 +8,7 @@
 import Foundation
 
 enum MovieListViewModelState {
-    case showMovieList([SubResult], Bool)
+    case showMovieList(MovieListCellViewModel)
     case showError(String)
     case isLoading(Bool)
 }
@@ -65,7 +65,9 @@ final class MovieFeedListViewModel: MovieFeedListViewModelProtocol {
                     output?.updateState(.showError(HttpError.badResponse.localizedDescription))
                     return
                 }
-                output?.updateState(.showMovieList(movieResult, false))
+                let viewModel = MovieListCellViewModel(subResult: movieResult,
+                                                       isSearch: false)
+                output?.updateState(.showMovieList(viewModel))
             case .failure(let error):
                 output?.updateState(.showError(error.localizedDescription))
             }
@@ -82,7 +84,9 @@ final class MovieFeedListViewModel: MovieFeedListViewModelProtocol {
                     output?.updateState(.showError(HttpError.badResponse.localizedDescription))
                     return
                 }
-                output?.updateState(.showMovieList(subResult, true))
+                let viewModel = MovieListCellViewModel(subResult: subResult,
+                                                       isSearch: true)
+                output?.updateState(.showMovieList(viewModel))
             case .failure(let error):
                 output?.updateState(.showError(error.localizedDescription))
             }

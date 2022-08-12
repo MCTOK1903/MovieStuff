@@ -15,7 +15,7 @@ enum HttpError: Error {
 }
 
 protocol HttpClientProtocol: AnyObject {
-    func fetch<T: Codable>(url: URL, completion: @escaping (Result<T, Error>) -> Void)
+    func fetch<T: Codable>(url: URL, completion: @escaping resultClosure<T>)
 }
 
 class HttpClient: HttpClientProtocol {

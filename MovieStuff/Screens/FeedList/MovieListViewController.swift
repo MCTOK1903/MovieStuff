@@ -14,11 +14,10 @@ class MovieListViewController: UIViewController {
     private var searchBar: UISearchController = {
         let search = UISearchController()
         search.searchBar.placeholder = "Search"
-        search.searchBar.showsCancelButton = true
         return search
     }()
     
-    private lazy var collectionView: UICollectionView = {
+    private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero,
@@ -27,6 +26,11 @@ class MovieListViewController: UIViewController {
         collectionView.register(
             MovieListCollectionViewCell.self,
             forCellWithReuseIdentifier: MovieListCollectionViewCell.reuseIdentifier
+        )
+        collectionView.register(
+            MovieListHeaderReusableView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: MovieListHeaderReusableView.reuseIdentifier
         )
         return collectionView
     }()
@@ -39,7 +43,6 @@ class MovieListViewController: UIViewController {
     }()
     
     // MARK: Properties
-    
     private var viewModel: MovieFeedListViewModelProtocol?
     private var dataSource: MovieSearchCollectionViewDataSource?
     private var searchBarDelegate: SearchBarDelegate?
@@ -79,6 +82,12 @@ class MovieListViewController: UIViewController {
         collectionView.dataSource = dataSource
         collectionView.delegate = dataSource
         
+        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            let sizeCalculator = MovieSearchCellSizeCalculator(flowLayout: flowLayout, width: UIScreen.main.bounds.size.width)
+            collectionView.contentInset = sizeCalculator.contentInset
+            collectionView.collectionViewLayout = sizeCalculator.getFlowLayout()
+        }
+        
         searchBar.searchBar.delegate = searchBarDelegate
     }
     
@@ -92,7 +101,8 @@ class MovieListViewController: UIViewController {
     
     private func movieCollection() {
         collectionView.snp.makeConstraints { make in
-            make.top.bottom.left.right.equalTo(view.safeAreaLayoutGuide)
+            make.top.left.right.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalTo(view)
         }
     }
     
@@ -121,9 +131,8 @@ class MovieListViewController: UIViewController {
 extension MovieListViewController: MovieFeedListViewModelOutput {
     func updateState(_ state: MovieListViewModelState) {
         switch state {
-        case .showMovieList(let result, let isSearchResult):
-            dataSource?.update(subResult: result,
-                               isSearchResult: isSearchResult)
+        case .showMovieList(let cellViewModel):
+            dataSource?.update(cellViewModel: cellViewModel)
             collectionView.reloadData()
         case .showError(let error):
             print(error)
