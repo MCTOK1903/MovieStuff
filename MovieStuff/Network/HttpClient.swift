@@ -11,7 +11,7 @@ import Alamofire
 typealias resultClosure<T: Codable> = (Result<T, Error>) -> Void
 
 enum HttpError: Error {
-    case badURL, badResponse, errorDecodingData, invalidURL
+    case badRequest, badURL, errorDecodingData, invalidURL, badResponse
 }
 
 protocol HttpClientProtocol: AnyObject {
@@ -32,6 +32,11 @@ class HttpClient: HttpClientProtocol {
                            completion: @escaping resultClosure<T>) {
         
         afSession.request(url, method: .get).responseDecodable(of: T.self) { movie  in
+            
+            if movie.response?.statusCode == 400 {
+                return completion(.failure(HttpError.badRequest))
+            }
+            
             guard let data = movie.value else {
                 return completion(.failure(HttpError.errorDecodingData))
             }

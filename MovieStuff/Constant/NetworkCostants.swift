@@ -10,7 +10,7 @@ import Foundation
 
 extension Constants {
     enum MoviePathURL: String {
-        case type_url = "movie/popular"
+        case movie_popular = "movie/popular"
         case search_multi = "search/multi"
     }
     

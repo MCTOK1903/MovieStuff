@@ -66,7 +66,7 @@ final class MovieFeedListViewModel: MovieFeedListViewModelProtocol {
     func getMovies() {
         output?.updateState(.isLoading(true))
         
-        fetch(url: Constants.generateURL(with: .type_url,
+        fetch(url: Constants.generateURL(with: .movie_popular,
                                       searchKey: .empty))
         { [output, weak self] (result: Result<SearchResult, Error>) in
             guard let self = self else { return }
