@@ -25,7 +25,9 @@ protocol MovieFeedListViewModelProtocol {
     var output: MovieFeedListViewModelOutput? { get set }
     
     func getMovies()
-    func search(with searchKey: String) 
+    func search(with searchKey: String)
+    func resetSearch()
+    func eventOccored(type: MediaType, id: Int)
 }
 
 final class MovieFeedListViewModel: MovieFeedListViewModelProtocol {
@@ -34,10 +36,12 @@ final class MovieFeedListViewModel: MovieFeedListViewModelProtocol {
     weak var output: MovieFeedListViewModelOutput?
     private var httpClient: HttpClientProtocol?
     private var searchResult: [SubResult] = []
+//    var coordinator: Coordinator?
     
     // MARK: Init
     init(httpClient: HttpClientProtocol) {
         self.httpClient = httpClient
+//        self.coordinator = coordinator
     }
     
     // MARK: Private Funcs
@@ -50,13 +54,22 @@ final class MovieFeedListViewModel: MovieFeedListViewModelProtocol {
         httpClient?.fetch(url: url, completion: completion)
     }
     
+    private func addMovieType(searchResult: [SubResult]) -> [SubResult ]{
+        var searchResult: [SubResult] = searchResult
+        for (index, _) in searchResult.enumerated() {
+            searchResult[index].mediaType = .movie
+        }
+        return searchResult
+    }
+    
     // MARK: Public Funcs
     func getMovies() {
         output?.updateState(.isLoading(true))
         
         fetch(url: Constants.generateURL(with: .type_url,
                                       searchKey: .empty))
-        { [output] (result: Result<SearchResult, Error>) in
+        { [output, weak self] (result: Result<SearchResult, Error>) in
+            guard let self = self else { return }
             output?.updateState(.isLoading(false))
             
             switch result {
@@ -65,7 +78,8 @@ final class MovieFeedListViewModel: MovieFeedListViewModelProtocol {
                     output?.updateState(.showError(HttpError.badResponse.localizedDescription))
                     return
                 }
-                let viewModel = MovieListCellViewModel(subResult: movieResult,
+                self.searchResult = movieResult
+                let viewModel = MovieListCellViewModel(subResult:   self.addMovieType(searchResult: movieResult),
                                                        isSearch: false)
                 output?.updateState(.showMovieList(viewModel))
             case .failure(let error):
@@ -91,5 +105,15 @@ final class MovieFeedListViewModel: MovieFeedListViewModelProtocol {
                 output?.updateState(.showError(error.localizedDescription))
             }
         }
+    }
+    
+    func resetSearch() {
+        let viewModel = MovieListCellViewModel(subResult: self.searchResult,
+                                               isSearch: false)
+        output?.updateState(.showMovieList(viewModel))
+    }
+    
+    func eventOccored(type: MediaType, id: Int) {
+//        coordinator?.eventOccurred(with: .goToDetail, itemType: type, id: id)
     }
 }

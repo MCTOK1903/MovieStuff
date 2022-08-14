@@ -14,7 +14,7 @@ enum Event {
 
 protocol Coordinator {
     var navigationController: UINavigationController? { get set }
-    func eventOccurred(with type: Event, item: Any)
+    func eventOccurred(with type: Event, itemType: MediaType, id: Int)
     func start()
 }
 
@@ -25,26 +25,16 @@ protocol Coordinating {
 class AppCoordinator: Coordinator {
     var navigationController: UINavigationController?
 
-    func eventOccurred(with type: Event, item: Any) {
-//        switch type {
-//        case .goToDetail:
-//            var vc: UIViewController & Coordinating = ItemDetailViewController(resultDetail: item as? Result)
-//            vc.coordinator = self
+    func eventOccurred(with type: Event, itemType: MediaType, id: Int) {
+        switch type {
+        case .goToDetail:
+            break
+//            let vc: UIViewController & Coordinating = MovieDetailBuilder.build(type: itemType, id: id, coordinator: self)
 //            navigationController?.pushViewController(vc, animated: true)
-//        }
+        }
     }
 
     func start() {
-//        let service: IService = Services()
-//        let viewModel = ItemSearchViewModel(
-//            service: service,
-//            coordinator: self
-//        )
-//        let searchTableViewProvider = SearchResultCollectionViewProvider()
-//        let vc: UIViewController = ItemSearchViewController(
-//            viewModel: viewModel,
-//            searchResultCollectionViewDelegate: searchTableViewProvider
-//        )
-        navigationController?.setViewControllers([MovieListBuilder.build()], animated: false)
+        navigationController?.pushViewController(MovieListBuilder.build(), animated: false)
     }
 }

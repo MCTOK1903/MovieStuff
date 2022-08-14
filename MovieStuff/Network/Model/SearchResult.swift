@@ -27,7 +27,7 @@ struct SubResult: Codable {
     let backdropPath: String?
     let genreIDS: [Int]?
     let id: Int?
-    let mediaType: MediaType?
+    var mediaType: MediaType?
     let originalLanguage: String?
     let originalTitle, overview: String?
     let popularity: Double?
@@ -71,4 +71,5 @@ enum MediaType: String, Codable {
     case movie = "movie"
     case person = "person"
     case tv = "tv"
+    case none = ""
 }

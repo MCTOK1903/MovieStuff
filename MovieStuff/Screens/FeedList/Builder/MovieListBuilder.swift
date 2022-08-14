@@ -7,16 +7,25 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
-class MovieListBuilder {
+enum MovieListBuilder {
     static func build() -> MovieListViewController {
+        let navVC = UINavigationController()
+        let coordinator = AppCoordinator()
+        coordinator.navigationController = navVC
+        
         let httpClient = HttpClient(afSession: Alamofire.Session.default)
+         
         let viewModel = MovieFeedListViewModel(httpClient: httpClient)
+        
         let dataSource = MovieSearchCollectionViewDataSource()
+        let delegate = MovieSearchCollectionViewDelegate()
         
         let viewController = MovieListViewController(viewModel: viewModel,
-                                                     dataSource: dataSource)
-        
+                                                     dataSource: dataSource,
+                                                     delegate: delegate)
+        viewController.coordinator = coordinator
         return viewController
     }
 }

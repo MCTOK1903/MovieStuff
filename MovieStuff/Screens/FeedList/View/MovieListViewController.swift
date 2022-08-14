@@ -8,7 +8,12 @@
 import UIKit
 import SnapKit
 
-class MovieListViewController: UIViewController {
+class MovieListViewController: UIViewController, Coordinating {
+
+    // MARK: Constant
+    private enum Constant {
+        static let searchHeight: CGFloat = 40
+    }
     
     // MARK: View
     private var searchBar: UISearchController = {
@@ -45,13 +50,17 @@ class MovieListViewController: UIViewController {
     // MARK: Properties
     private var viewModel: MovieFeedListViewModelProtocol?
     private var dataSource: MovieSearchCollectionViewDataSource?
+    private var delegate:  MovieSearchCollectionViewDelegate?
     private var searchBarDelegate: SearchBarDelegate?
+    var coordinator: Coordinator?
     
     // MARK: Init
     init(viewModel: MovieFeedListViewModelProtocol,
-         dataSource: MovieSearchCollectionViewDataSource) {
+         dataSource: MovieSearchCollectionViewDataSource,
+         delegate: MovieSearchCollectionViewDelegate) {
         self.viewModel = viewModel
         self.dataSource = dataSource
+        self.delegate = delegate
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -80,7 +89,7 @@ class MovieListViewController: UIViewController {
     
     private func configureDelegate() {
         collectionView.dataSource = dataSource
-        collectionView.delegate = dataSource
+        collectionView.delegate = delegate
         
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             let sizeCalculator = MovieSearchCellSizeCalculator(flowLayout: flowLayout, width: UIScreen.main.bounds.size.width)
@@ -110,7 +119,7 @@ class MovieListViewController: UIViewController {
         indicator.snp.makeConstraints { make in
             make.centerX.equalTo(view.snp.centerX)
             make.centerY.equalTo(view.snp.centerY)
-            make.height.width.equalTo(40)
+            make.height.width.equalTo(Constant.searchHeight)
         }
     }
     
@@ -133,6 +142,8 @@ extension MovieListViewController: MovieFeedListViewModelOutput {
         switch state {
         case .showMovieList(let cellViewModel):
             dataSource?.update(cellViewModel: cellViewModel)
+            delegate?.update(cellViewModel: cellViewModel,
+                             output: self)
             collectionView.reloadData()
         case .showError(let error):
             print(error)
@@ -146,5 +157,15 @@ extension MovieListViewController: MovieFeedListViewModelOutput {
 extension MovieListViewController: SearchBarDelegateOutput {
     func searchTapped(_ searchKey: String) {
         viewModel?.search(with: searchKey)
+    }
+    
+    func resetSearch() {
+        viewModel?.resetSearch()
+    }
+}
+
+extension MovieListViewController: MovieSearchCollectionViewDelegateOutput {
+    func didSelectItem(type: MediaType, id: Int) {
+        navigationController?.pushViewController(MovieDetailBuilder.build(type: type, id: id), animated: true)
     }
 }

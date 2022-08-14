@@ -17,6 +17,8 @@ struct Constants {
     static let PATH_URL = "w500"
     
     static let emptyImageURL: URL = URL(string: "https://www.swift-inc.com/public/images/images-empty.png")!
+    
+   
 }
 
 extension Constants {
@@ -28,5 +30,13 @@ extension Constants {
     
     static func generateImageURL(with path: String) -> URL? {
         URL(string: IMAGE_BASE_URL + PATH_URL + path)
+    }
+    
+    static func generateDetailURL(with path: MovieDetailPathURL, id: Int) -> URL? {
+        URL(string: BASE_URL + path.rawValue + "/" + "\(id)" + API_KEY)
+    }
+    
+    static func generateDetailSubURL(with path: MovieDetailPathURL, id: Int, subPath: MovieDetailSubPath) -> URL? {
+        URL(string: BASE_URL + path.rawValue + "/" + "\(id)" + "/" + subPath.rawValue + API_KEY)
     }
 }

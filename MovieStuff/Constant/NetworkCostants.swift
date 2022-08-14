@@ -13,4 +13,15 @@ extension Constants {
         case type_url = "movie/popular"
         case search_multi = "search/multi"
     }
+    
+    enum MovieDetailPathURL: String {
+        case person = "person"
+        case movie = "movie"
+        case tv = "tv"
+    }
+    
+    enum MovieDetailSubPath: String {
+        case images = "images"
+        case cast = "credits"
+    }
 }

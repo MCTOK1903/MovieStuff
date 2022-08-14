@@ -71,7 +71,6 @@ class MovieListCellViewModel {
         return subResult[indexPath.item].title ?? .empty
     }
     
-    
     func getRating(indexPath: IndexPath) -> String {
         var rating: Double = .zero
         if isSearch {
@@ -96,9 +95,29 @@ class MovieListCellViewModel {
             return mediaType?.rawValue.uppercased() ?? .empty
         case .person:
             return mediaType?.rawValue.uppercased() ?? .empty
-        case .none:
+        default:
             return .empty
         }
+    }
+    
+    func getMediaType(indexPath: IndexPath) -> MediaType {
+        if isSearch,
+           let mediaType = filteredSubResults[indexPath.section + 1][indexPath.item].mediaType {
+            return mediaType
+        } else if let mediaType = subResult[indexPath.item].mediaType {
+            return mediaType
+        }
+        return .none
+    }
+    
+    func getID(indexPath: IndexPath) -> Int {
+        if isSearch,
+           let id = filteredSubResults[indexPath.section + 1][indexPath.item].id {
+            return id
+        } else if let id = subResult[indexPath.item].id {
+            return id
+        }
+        return .zero
     }
     
     // MARK: Private Funcs
@@ -122,7 +141,7 @@ class MovieListCellViewModel {
                 tvList.append(item)
             case .person:
                 personList.append(item)
-            case .none:
+            default:
                 break
             }
         }
@@ -141,7 +160,7 @@ class MovieListCellViewModel {
             imagePath = filteredSubResults[indexPath.section + 1][indexPath.item].profilePath
         case .tv, .movie:
             imagePath = filteredSubResults[indexPath.section + 1][indexPath.item].posterPath
-        case .none:
+        default:
             break
         }
         return imagePath

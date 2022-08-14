@@ -9,6 +9,7 @@ import UIKit
 
 protocol SearchBarDelegateOutput: AnyObject {
     func searchTapped(_ searchKey: String)
+    func resetSearch()
 }
 
 
@@ -28,7 +29,7 @@ extension SearchBarDelegate: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        print("cancelTapped")
+        output?.resetSearch()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

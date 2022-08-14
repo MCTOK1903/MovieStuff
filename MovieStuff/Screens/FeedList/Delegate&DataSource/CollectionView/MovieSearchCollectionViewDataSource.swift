@@ -46,15 +46,6 @@ extension MovieSearchCollectionViewDataSource: UICollectionViewDataSource,
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
-            let sizeCalculator = MovieSearchCellSizeCalculator(flowLayout: flowLayout,
-                                                               width: UIScreen.main.bounds.size.width)
-            return sizeCalculator.estimatedItemSize
-        }
-        return .zero
-    }
-    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView.dequeueReusableSupplementaryView(
             ofKind: UICollectionView.elementKindSectionHeader,
@@ -63,15 +54,5 @@ extension MovieSearchCollectionViewDataSource: UICollectionViewDataSource,
         ) as? MovieListHeaderReusableView else { return UICollectionReusableView() }
         header.titleLabel.text = viewModel?.getHeaderTitle(indexPath: indexPath)
         return header
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout,
-           isSearchResult ?? false {
-            let sizeCalculator = MovieSearchCellSizeCalculator(flowLayout: flowLayout,
-                                                               width: UIScreen.main.bounds.size.width)
-            return sizeCalculator.headerSize
-        }
-        return .zero
     }
 }
