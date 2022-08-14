@@ -146,7 +146,7 @@ extension MovieListViewController: MovieFeedListViewModelOutput {
                              output: self)
             collectionView.reloadData()
         case .showError(let error):
-            print(error)
+            showAlert(message: error)
         case .isLoading(let isShow):
             showIndicator(isShow: isShow)
         }

@@ -18,7 +18,7 @@ class CastCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
-    private var mainImage: UIImageView = {
+    private var castImage: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleToFill
         image.layer.masksToBounds = true
@@ -27,7 +27,7 @@ class CastCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
-    private var movieName: UILabel = {
+    private var castName: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 15)
         label.textAlignment = .center
@@ -35,14 +35,6 @@ class CastCollectionViewCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
-        return label
-    }()
-    
-    private var movieRating: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 15)
-        label.textAlignment = .center
-        label.textColor = .black
         return label
     }()
     
@@ -61,9 +53,8 @@ class CastCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        mainImage.image = nil
-        movieName.text = nil
-        movieRating.text = nil
+        castImage.image = nil
+        castName.text = nil
     }
     
     // MARK: Public Func
@@ -77,9 +68,8 @@ class CastCollectionViewCell: UICollectionViewCell {
     // MARK: Private Funcs
     private func configureUI() {
         contentView.addSubview(parentStackView)
-        parentStackView.addArrangedSubview(mainImage)
-        parentStackView.addArrangedSubview(movieName)
-        parentStackView.addArrangedSubview(movieRating)
+        parentStackView.addArrangedSubview(castImage)
+        parentStackView.addArrangedSubview(castName)
         
         self.layer.cornerRadius = 8
     }
@@ -98,14 +88,14 @@ class CastCollectionViewCell: UICollectionViewCell {
     }
     
     private func configureTitle(stringTitle: String) {
-        movieName.isHidden = stringTitle == .empty
-        movieName.text = stringTitle
+        castName.isHidden = stringTitle == .empty
+        castName.text = stringTitle
     }
     
     private func configureImage(url: URL) {
-        mainImage.widthAnchor.constraint(equalTo: mainImage.heightAnchor,
+        castImage.widthAnchor.constraint(equalTo: castImage.heightAnchor,
                                          multiplier: 0.75).isActive = true
-        mainImage.af.setImage(withURL: url,
+        castImage.af.setImage(withURL: url,
                               progressQueue: .global())
     }
 }

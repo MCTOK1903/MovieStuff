@@ -39,10 +39,12 @@ class MovieDetailViewModel {
     // MARK: Init
     init(type: MediaType,
          id: Int,
-         httpClient: HttpClientProtocol) {
+         httpClient: HttpClientProtocol,
+         coordinator: Coordinator) {
         self.type = type
         self.id = id
         self.httpClient = httpClient
+        self.coordinator = coordinator
         
         fetchDetail()
     }
@@ -110,14 +112,16 @@ class MovieDetailViewModel {
         }
     }
     
+    func goToCastDetail(id: Int) {
+        coordinator?.eventOccored(event: .goToDetail(.person, id))
+    }
+    
     // MARK: Private Funcs
-    func fetchDetail() {
+    private func fetchDetail() {
         switch type {
         case .movie:
             fetchMovieDetail()
             getCast(path: .movie)
-        case .person:
-            fetcPersonDetail()
         case .tv:
             fetchTVDetail()
             getCast(path: .tv)
@@ -132,17 +136,6 @@ class MovieDetailViewModel {
             case .success(let movieDetail):
                 self?.movieDetail = movieDetail
                 self?.output?.updateState(.setData)
-            case .failure(let error):
-                self?.output?.updateState(.showError(error.localizedDescription))
-            }
-        }
-    }
-    
-    private func fetcPersonDetail() {
-        fetch(url: Constants.generateDetailURL(with: .person, id: id)) { [weak self] (response: Result<PersonModel, Error>) in
-            switch response {
-            case .success(let personDetail):
-                print(personDetail)
             case .failure(let error):
                 self?.output?.updateState(.showError(error.localizedDescription))
             }

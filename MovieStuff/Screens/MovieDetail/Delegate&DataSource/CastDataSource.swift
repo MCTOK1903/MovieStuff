@@ -7,14 +7,22 @@
 
 import UIKit
 
+protocol CastDataSourceOutput: AnyObject {
+    func didSelectItem(id: Int)
+}
+
 class CastDataSource: NSObject {
     
     private var viewModel: CastViewModel?
+    private var output: CastDataSourceOutput?
+    
+    init(output: CastDataSourceOutput?) {
+        self.output = output
+    }
     
     func update(cellViewModel: CastViewModel) {
         self.viewModel = cellViewModel
     }
-    
 }
 
 // MARK: - UICollectionViewDataSource
@@ -43,5 +51,9 @@ extension CastDataSource: UICollectionViewDataSource,
                        indexPath: indexPath)
 
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        output?.didSelectItem(id: viewModel?.getId(indexPath: indexPath) ?? .zero)
     }
 }

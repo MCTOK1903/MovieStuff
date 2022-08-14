@@ -21,14 +21,18 @@ protocol Coordinator: AnyObject {
 
 class AppCoordinator: Coordinator {
     
+    // MARK: Properties
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var navigationController: UINavigationController?
 
+    // MARK: Init
     init(navCon : UINavigationController) {
         self.navigationController = navCon
     }
-
+    
+    // MARK: Funcs
+    
     func start() {
         navigationController?.pushViewController(MovieListBuilder.build(appCoordinator: self), animated: false)
     }
@@ -36,7 +40,14 @@ class AppCoordinator: Coordinator {
     func eventOccored(event: Event) {
         switch event {
         case .goToDetail(let mediaType, let id):
-            navigationController?.pushViewController(MovieDetailBuilder.build(type: mediaType, id: id), animated: true)
+            switch mediaType {
+            case .movie, .tv:
+                navigationController?.pushViewController(MovieDetailBuilder.build(type: mediaType, id: id, coordinator: self), animated: true)
+            case .person:
+                navigationController?.pushViewController(CastDetailBuilder.build(id: id), animated: true)
+            default:
+                break
+            }
         }
     }
 }

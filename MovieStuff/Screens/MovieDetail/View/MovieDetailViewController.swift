@@ -136,7 +136,7 @@ class MovieDetailViewController: UIViewController {
     }
     
     private func configureCollectionView() {
-        dataSource = CastDataSource()
+        dataSource = CastDataSource(output: self)
         collectionView.dataSource = dataSource
         collectionView.delegate = dataSource
     }
@@ -186,8 +186,15 @@ extension MovieDetailViewController: MovieDetailViewModelOutput {
             dataSource?.update(cellViewModel: cellViewModel)
             collectionView.reloadData()
         case .showError(let error):
-            print(error)
+            showAlert(message: error)
         }
+    }
+}
+
+// MARK: CastDataSourceOutput
+extension MovieDetailViewController: CastDataSourceOutput {
+    func didSelectItem(id: Int) {
+        viewModel?.goToCastDetail(id: id)
     }
 }
 

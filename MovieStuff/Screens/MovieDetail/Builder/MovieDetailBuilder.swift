@@ -9,13 +9,14 @@ import Foundation
 import Alamofire
 
 enum MovieDetailBuilder {
-    static func build(type: MediaType, id: Int) -> MovieDetailViewController {
-        
+    static func build(type: MediaType, id: Int, coordinator: Coordinator) -> MovieDetailViewController {
+       
         let httpClient = HttpClient(afSession: Alamofire.Session.default)
         let viewModel = MovieDetailViewModel(type: type,
                                              id: id,
-                                             httpClient: httpClient)
-//        viewModel.coordinator = coordinator
+                                             httpClient: httpClient,
+                                             coordinator: coordinator)
+        //        viewModel.coordinator = coordinator
         let vc = MovieDetailViewController(viewModel: viewModel)
         return vc
     }

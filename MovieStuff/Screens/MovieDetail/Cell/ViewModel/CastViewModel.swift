@@ -34,5 +34,9 @@ class CastViewModel {
     func getName(indexPath: IndexPath) -> String {
         cast[indexPath.item].originalName ?? .empty
     }
+    
+    func getId(indexPath: IndexPath) -> Int {
+        cast[indexPath.item].id ?? .zero
+    }
 }
 
