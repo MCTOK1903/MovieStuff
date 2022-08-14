@@ -27,7 +27,7 @@ protocol MovieFeedListViewModelProtocol {
     func getMovies()
     func search(with searchKey: String)
     func resetSearch()
-    func eventOccored(type: MediaType, id: Int)
+    func goToDetial(type: MediaType, id: Int)
 }
 
 final class MovieFeedListViewModel: MovieFeedListViewModelProtocol {
@@ -36,12 +36,12 @@ final class MovieFeedListViewModel: MovieFeedListViewModelProtocol {
     weak var output: MovieFeedListViewModelOutput?
     private var httpClient: HttpClientProtocol?
     private var searchResult: [SubResult] = []
-//    var coordinator: Coordinator?
+    var coordinator: AppCoordinator?
     
     // MARK: Init
-    init(httpClient: HttpClientProtocol) {
+    init(httpClient: HttpClientProtocol, coordinator: AppCoordinator) {
         self.httpClient = httpClient
-//        self.coordinator = coordinator
+        self.coordinator = coordinator
     }
     
     // MARK: Private Funcs
@@ -113,7 +113,7 @@ final class MovieFeedListViewModel: MovieFeedListViewModelProtocol {
         output?.updateState(.showMovieList(viewModel))
     }
     
-    func eventOccored(type: MediaType, id: Int) {
-//        coordinator?.eventOccurred(with: .goToDetail, itemType: type, id: id)
+    func goToDetial(type: MediaType, id: Int) {
+        coordinator?.eventOccored(event: .goToDetail(type, id))
     }
 }

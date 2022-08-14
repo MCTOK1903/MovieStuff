@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MovieListViewController: UIViewController, Coordinating {
+class MovieListViewController: UIViewController {
 
     // MARK: Constant
     private enum Constant {
@@ -166,6 +166,6 @@ extension MovieListViewController: SearchBarDelegateOutput {
 
 extension MovieListViewController: MovieSearchCollectionViewDelegateOutput {
     func didSelectItem(type: MediaType, id: Int) {
-        navigationController?.pushViewController(MovieDetailBuilder.build(type: type, id: id), animated: true)
+        viewModel?.goToDetial(type: type, id: id)
     }
 }

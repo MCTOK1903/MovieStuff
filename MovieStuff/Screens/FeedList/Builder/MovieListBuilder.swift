@@ -10,14 +10,14 @@ import Alamofire
 import UIKit
 
 enum MovieListBuilder {
-    static func build() -> MovieListViewController {
+    static func build(appCoordinator: AppCoordinator) -> MovieListViewController {
         let navVC = UINavigationController()
-        let coordinator = AppCoordinator()
-        coordinator.navigationController = navVC
+        
+        let coordinator = AppCoordinator(navCon: navVC)
         
         let httpClient = HttpClient(afSession: Alamofire.Session.default)
          
-        let viewModel = MovieFeedListViewModel(httpClient: httpClient)
+        let viewModel = MovieFeedListViewModel(httpClient: httpClient, coordinator: appCoordinator)
         
         let dataSource = MovieSearchCollectionViewDataSource()
         let delegate = MovieSearchCollectionViewDelegate()

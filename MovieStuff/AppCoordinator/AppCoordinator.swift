@@ -9,32 +9,34 @@ import Foundation
 import UIKit
 
 enum Event {
-    case goToDetail
+    case goToDetail(MediaType, Int)
 }
 
-protocol Coordinator {
+protocol Coordinator: AnyObject {
     var navigationController: UINavigationController? { get set }
-    func eventOccurred(with type: Event, itemType: MediaType, id: Int)
+    var parentCoordinator: Coordinator? { get set }
+    func eventOccored(event: Event)
     func start()
 }
 
-protocol Coordinating {
-    var coordinator: Coordinator? { get set }
-}
-
 class AppCoordinator: Coordinator {
+    
+    var parentCoordinator: Coordinator?
+    var children: [Coordinator] = []
     var navigationController: UINavigationController?
 
-    func eventOccurred(with type: Event, itemType: MediaType, id: Int) {
-        switch type {
-        case .goToDetail:
-            break
-//            let vc: UIViewController & Coordinating = MovieDetailBuilder.build(type: itemType, id: id, coordinator: self)
-//            navigationController?.pushViewController(vc, animated: true)
-        }
+    init(navCon : UINavigationController) {
+        self.navigationController = navCon
     }
 
     func start() {
-        navigationController?.pushViewController(MovieListBuilder.build(), animated: false)
+        navigationController?.pushViewController(MovieListBuilder.build(appCoordinator: self), animated: false)
+    }
+    
+    func eventOccored(event: Event) {
+        switch event {
+        case .goToDetail(let mediaType, let id):
+            navigationController?.pushViewController(MovieDetailBuilder.build(type: mediaType, id: id), animated: true)
+        }
     }
 }

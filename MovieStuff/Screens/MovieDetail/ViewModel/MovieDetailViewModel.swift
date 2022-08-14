@@ -17,7 +17,7 @@ protocol MovieDetailViewModelOutput {
     func updateState(_ state: MovieDetailViewModelState)
 }
 
-class MovieDetailViewModel: Coordinating {
+class MovieDetailViewModel {
     
     // MARK: Enum
     private enum Constant {
@@ -32,7 +32,7 @@ class MovieDetailViewModel: Coordinating {
     private let id: Int
     private let httpClient: HttpClientProtocol
     var output: MovieDetailViewModelOutput?
-    var coordinator: Coordinator?
+    weak var coordinator: Coordinator?
     private var movieDetail: MovieDetailModel?
     private var tvDetail: TVDetail?
     
@@ -160,7 +160,6 @@ class MovieDetailViewModel: Coordinating {
             }
         }
     }
-    
     
     private func fetch<T: Codable>(url: URL?, completion: @escaping resultClosure<T>) {
         guard let url = url else {
