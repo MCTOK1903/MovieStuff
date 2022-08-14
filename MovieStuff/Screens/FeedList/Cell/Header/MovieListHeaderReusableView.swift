@@ -10,6 +10,7 @@ import SnapKit
 
 class MovieListHeaderReusableView: UICollectionReusableView, Reusable {
     
+    // MARK: Views
     var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -22,6 +23,7 @@ class MovieListHeaderReusableView: UICollectionReusableView, Reusable {
         return label
     }()
     
+    // MARK: Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(titleLabel)

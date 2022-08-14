@@ -76,11 +76,11 @@ class MovieDetailViewController: UIViewController {
         return collectionView
     }()
     
-    
+    // MARK: Properties
     private let viewModel: MovieDetailViewModel?
-    var coordinator: Coordinator?
     private var dataSource: CastDataSource?
     
+    // MARK: Init
     init(viewModel: MovieDetailViewModel) {
         self.viewModel = viewModel
         
@@ -143,7 +143,6 @@ class MovieDetailViewController: UIViewController {
 }
 
 //MARK: - Constraints
-
 extension MovieDetailViewController {
     private func makeScroll() {
         scrollView.snp.makeConstraints { make in

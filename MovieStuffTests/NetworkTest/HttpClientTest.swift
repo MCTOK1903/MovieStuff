@@ -164,7 +164,7 @@ class HttpClientTest: XCTestCase {
             case .success(let data):
                 XCTAssertNotNil(data)
                 expectation.fulfill()
-            case .failure(let error):
+            case .failure:
                 XCTFail("Data should be full")
             }
         }

@@ -52,7 +52,6 @@ class MovieListViewController: UIViewController {
     private var dataSource: MovieSearchCollectionViewDataSource?
     private var delegate:  MovieSearchCollectionViewDelegate?
     private var searchBarDelegate: SearchBarDelegate?
-    var coordinator: Coordinator?
     
     // MARK: Init
     init(viewModel: MovieFeedListViewModelProtocol,
@@ -164,6 +163,7 @@ extension MovieListViewController: SearchBarDelegateOutput {
     }
 }
 
+// MARK: MovieSearchCollectionViewDelegateOutput
 extension MovieListViewController: MovieSearchCollectionViewDelegateOutput {
     func didSelectItem(type: MediaType, id: Int) {
         viewModel?.goToDetial(type: type, id: id)

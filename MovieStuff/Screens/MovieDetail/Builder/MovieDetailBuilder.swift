@@ -16,7 +16,6 @@ enum MovieDetailBuilder {
                                              id: id,
                                              httpClient: httpClient,
                                              coordinator: coordinator)
-        //        viewModel.coordinator = coordinator
         let vc = MovieDetailViewController(viewModel: viewModel)
         return vc
     }

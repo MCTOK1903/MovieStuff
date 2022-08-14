@@ -26,6 +26,7 @@ protocol CastDetailViewModelOutput: AnyObject {
 
 final class CastDetailViewModel: CastDetailViewModelProcol {
     
+    // MARK: Properties
     private var cast: PersonModel?
     private var id: Int
     private var httpClient: HttpClientProtocol

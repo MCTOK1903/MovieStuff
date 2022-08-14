@@ -11,9 +11,6 @@ import UIKit
 
 enum MovieListBuilder {
     static func build(appCoordinator: AppCoordinator) -> MovieListViewController {
-        let navVC = UINavigationController()
-        
-        let coordinator = AppCoordinator(navCon: navVC)
         
         let httpClient = HttpClient(afSession: Alamofire.Session.default)
          
@@ -25,7 +22,6 @@ enum MovieListBuilder {
         let viewController = MovieListViewController(viewModel: viewModel,
                                                      dataSource: dataSource,
                                                      delegate: delegate)
-        viewController.coordinator = coordinator
         return viewController
     }
 }

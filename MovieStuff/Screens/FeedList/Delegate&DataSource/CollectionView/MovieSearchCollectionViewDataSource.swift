@@ -19,9 +19,7 @@ class MovieSearchCollectionViewDataSource: NSObject {
 }
 
 // MARK: - UICollectionViewDataSource
-extension MovieSearchCollectionViewDataSource: UICollectionViewDataSource,
-                                               UICollectionViewDelegateFlowLayout,
-                                               UICollectionViewDelegate {
+extension MovieSearchCollectionViewDataSource: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         viewModel?.numberOfSections() ?? .zero
