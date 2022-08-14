@@ -162,6 +162,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		00246D4128A9174F0052855A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				005CC82F28A54D6F007DB873 /* Assets.xcassets */,
+				005CC83128A54D6F007DB873 /* LaunchScreen.storyboard */,
+				005CC83428A54D6F007DB873 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		004C458628A59B2A00900927 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,15 +208,13 @@
 		005CC82528A54D6C007DB873 /* MovieStuff */ = {
 			isa = PBXGroup;
 			children = (
+				00246D4128A9174F0052855A /* Resources */,
 				005CC86228A55B42007DB873 /* Extension */,
 				005CC85628A558FA007DB873 /* Constant */,
 				005CC84228A55093007DB873 /* Network */,
 				005CC83E28A54F34007DB873 /* Screens */,
 				005CC83D28A54F28007DB873 /* AppCoordinator */,
 				005CC83A28A54DCD007DB873 /* App */,
-				005CC82F28A54D6F007DB873 /* Assets.xcassets */,
-				005CC83128A54D6F007DB873 /* LaunchScreen.storyboard */,
-				005CC83428A54D6F007DB873 /* Info.plist */,
 			);
 			path = MovieStuff;
 			sourceTree = "<group>";
@@ -649,7 +657,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D4T62J4499;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MovieStuff/Info.plist;
+				INFOPLIST_FILE = MovieStuff/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -676,7 +684,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D4T62J4499;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MovieStuff/Info.plist;
+				INFOPLIST_FILE = MovieStuff/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
